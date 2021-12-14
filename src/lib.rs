@@ -12,3 +12,36 @@ pub struct Todo {
     pub title: String,
     pub completed: bool,
 }
+
+enum Msg {
+    MakeReq,
+    Resp(Result<Vec<Todo>, anyhow::Error>),
+}
+
+impl Component for TodoApp {
+    type Message = Msg;
+    type Properties = ();
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        Self {
+            link,
+            todos: None,
+            fetch_task: None,
+        }
+    }
+
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        true
+    }
+
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        false
+    }
+
+    fn view(&self) -> Html {
+        html! {
+            <div class=classes!("todo")>
+                ...
+            </div>
+        }
+    }
+}
